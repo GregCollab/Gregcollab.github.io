@@ -82,7 +82,7 @@
         var panner = d3.drag()
             .subject(dragSubject)
             .on("drag",function() {
-                projection.rotate([projection.rotate()[0]*0.5+d3.event.x*0.05, -projection.rotate()[1]*0.5-d3.event.y*0.05]);
+                projection.rotate([projection.rotate()[0]*0.5+d3.event.x*0.15, projection.rotate()[1]*0.5-d3.event.y*0.15]);
                 //Update the orb
                 svg.selectAll("path").attr("d",path);
             })
