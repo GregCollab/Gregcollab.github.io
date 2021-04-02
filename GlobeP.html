@@ -110,36 +110,23 @@
         //                 .datum(graticule)
         //                 .attr("class", "graticule")
         //                 .attr("d", path)
-        // svg.call(d3.drag()
-        //     .on("start",function(){
-        //         mouseDown = true
-        //     })
-        //     .on("drag",function() {
-        //         const rot = projection.rotate()
-        //         projection.rotate([rot[0]+d3.event.sourceEvent.movementX*0.7, rot[1]-d3.event.sourceEvent.movementY*0.7]);
-        //         //Update the orb
-        //         path = d3.geoPath().projection(projection)
-        //         svg.selectAll("path").attr("d", path)
-        //         //orb.selectAll("path").attr("d",path)
-
-        //     })
-        //     .on("end",function(){
-        //         mouseDown = false
-        //     }))
-            function dragSubject(){
-            var r= projection.rotate();
-        return {
-            x: r[0], y:-r[1]
-        };
-        }
-        var panner = d3.drag()
-            .subject(dragSubject)
-            .on("drag",function() {
-                projection.rotate([projection.rotate()[0]+d3.event.dx, projection.rotate()[1]-d3.event.y]);
-                //Update the orb
-                svg.selectAll("path").attr("d",path);
+        svg.call(d3.drag()
+            .on("start",function(){
+                mouseDown = true
             })
-        svg.call(panner);
+            .on("drag",function() {
+                const rot = projection.rotate()
+                projection.rotate([rot[0]+d3.event.sourceEvent.movementX*0.7, rot[1]-d3.event.sourceEvent.movementY*0.7]);
+                //Update the orb
+                path = d3.geoPath().projection(projection)
+                svg.selectAll("path").attr("d", path)
+                //orb.selectAll("path").attr("d",path)
+
+            })
+            .on("end",function(){
+                mouseDown = false
+            }))
+            
 
         document.getElementById
     </script>
