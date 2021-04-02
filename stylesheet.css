@@ -8,3 +8,10 @@ H1 {
 .Completed {color:green}
 .InProgress {color:yellow}
 .future {color:red}
+
+.C {
+  margin-top: 50px;
+  margin-left:60px;
+  margin-right:60px;
+  text-align:center
+}
