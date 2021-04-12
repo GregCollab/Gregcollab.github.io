@@ -34,8 +34,19 @@
     <li> <a href="RandomResto.html" class="InProgress"> What shall we eat today? </a></li>
     <li> <span class="future"> ... many more! </span></li>
     </ol>
+    <p> For fun, here is a cat fact!</p>
+    <div id = "CatFact"></div>
     <iframe src="script2.html" height=600 width=1200 frameBorder="0"></iframe>
-    
+    <script>
+
+    fetch('https://cat-fact.herokuapp.com/facts')
+      .then((response) => {
+        return response.json()
+      })
+      .then((data => {
+        const parent = document.getElementById("CatFact")
+        parent.innerHTML = data[1]["text"]}))
+    </script>
 </body> 
 
 
