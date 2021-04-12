@@ -45,7 +45,7 @@ sleep(100)
 k = "blue"
 function cb(){
     SVG.append("text")
-        .attr("x", event.clientX-10)
+        .attr("x", event.clientX-655)
         .attr("y", event.clientY-75)
         .attr("fill", k)
         .text('X')

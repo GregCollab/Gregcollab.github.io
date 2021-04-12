@@ -4,17 +4,32 @@
 
 <head> 
     <title id="Title"> Personal Scripts </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="stylesheet.css">
     <style>
       .InProgress {color:blue}
       #RandomCat {
-        text-align:center;
         height:550;
         width:550;
       }
     </style>
     
 <body>
+    <div class="bg-image"></div>
+
+    <H1>Personal Scripts:</H1>
+    <p>On this page, there are some small test scripts. Nothing of real importance or actual use will be placed here. Instead, there will be some basic mini-projects that are meant for fun and learning some specific language</p>
+    <p>Finished projects are denoted in <span class="Completed">green </span>, projects in progress are denoted in <span class="InProgress"> blue</span> and future projects will be in <span class="future"> red </span>. Clicking on 
+    <span class="Completed"> completed projects</span> will give the script.</p> 
+    <ol>
+    <li><a href="script1.html" class="Completed"> Drawing on a canvas, accepting user input </a> </li>
+    <li> <a href="GlobeP.html" class="Completed"> Interactive globe</a></li>
+    <li> <a href="RandomResto.html" class="InProgress"> What shall we eat today? </a></li>
+    <li class = "Completed"> Adding cat pictures, using APIs</li>
+    <li> <span class="future"> ... many more! </span></li>
+    </ol>
+    <p> Here is a cat to make your day better!</p>
+    <div id = "RandomCat"></div>
 
     <form
     action="https://formspree.io/f/xzbypqnr"
@@ -29,20 +44,6 @@
   
     <button type="submit">Send</button>
   </form>
-    <H1>Personal Scripts:</H1>
-    <p>On this page, there are some small test scripts. Nothing of real importance or actual use will be placed here. Instead, there will be some basic mini-projects that are meant for fun and learning some specific language</p>
-    <p>Finished projects are denoted in <span class="Completed">green </span>, projects in progress are denoted in <span class="InProgress"> blue</span> and future projects will be in <span class="future"> red </span>. Clicking on 
-    <span class="Completed"> completed projects</span> will give the script.</p> 
-    <ol>
-    <li><a href="script1.html" class="Completed"> Drawing on a canvas, accepting user input </a> </li>
-    <li> <a href="GlobeP.html" class="Completed"> Interactive globe</a></li>
-    <li> <a href="RandomResto.html" class="InProgress"> What shall we eat today? </a></li>
-    <li class = "Completed"> Adding cat pictures, using APIs</li>
-    <li> <span class="future"> ... many more! </span></li>
-    </ol>
-    <p> Here is a cat to make your day better!</p>
-    <div id = "RandomCat"></div>
-    <iframe src="script2.html" height=600 width=1200 frameBorder="0"></iframe>
     <script>
 
     fetch('https://aws.random.cat/meow')
@@ -57,6 +58,7 @@
         img.width = 300
         parent.appendChild(img)})
     </script>
+
 </body> 
 
 

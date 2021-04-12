@@ -17,7 +17,20 @@ H1 {
 }
 
 #RandomCat {
-  text-align:center;
-  height:550;
-  width:550;
+  background-color:"green"
+  }
+
+html {
+  background: url("pexels-scott-webb-305821.jpg") no-repeat center ;
+  font-size:large;
+  background-size:cover;
+  background-blend-mode:color-dodge;
+}
+
+body {
+  padding-left: 1cm;
+  padding-right: 2cm;
+  font-family: "Times New Roman", Times, serif;
+  font-size:15pt;
+  font-weight:500
 }
