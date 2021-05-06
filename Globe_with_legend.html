@@ -45,19 +45,19 @@
             
         }
         #Container_jaartal {
-            text-align:"center";
-            margin-left: 50vw;
-            margin-right:50vw;
-            left:50%;
+            align-content:"center";
+            width:100vw;
+            position: relative;
+            text-align:center;
             font-size:25px;
         }
         #timelapse {
-          margin-left:94vh
-
+          position: relative;
+          text-align: center;
         }
         
       #legend{
-        left:100px
+
       }
       #t {
         margin-right: 10vh;
@@ -66,7 +66,8 @@
 
       }
       #Legend {
-        margin-left:10vw
+        margin-left: 25vw;
+        
       }
         
         </style>
@@ -82,11 +83,11 @@
       </div>
         <div class="info"  >       Hover over a country</div>
       </div>
-              <svg id="Legend"></svg> 
+         <div>    <svg id="Legend"></svg> </div> 
       <div id="Container_slider" class = "Slider"> 
-                  <input  type="range" min="1970" max="2019" value="2000" id="SliderHere"></input></div>
+                  <input  type="range" min="1970" max="2019" value="2000" id="SliderHere"></input> </div>
       <div id="Container_jaartal" ></div>
-      <div id="timelapse"> <input type="button" value="Click here for timelapse" onclick=TikTok()></input> </div>
+      <div id="timelapse"> <input id = "thebutton" type="button" value="Click here for timelapse" onclick=TikTok()></input> </div>
     <script>
         //Loading the orb
         var {width, height} = d3.select("#Globe svg").node().getBoundingClientRect();
@@ -291,17 +292,17 @@
     
 
 
-      var width_everything = document.getElementById("Globe").clientWidth
+      const width_everything = document.getElementById("Globe").clientWidth
         function legend({
             color,
   title,
   tickSize = 6,
-  width = 0.75*width_everything,
+  width = 0.5*width_everything,
   height = 50 + tickSize,
   marginTop = 18,
-  marginRight = width_everything*0.125,
+  marginRight = 0,
   marginBottom = 16 + tickSize,
-  marginLeft = width_everything*0.125,
+  marginLeft = 0,
   ticks = width / 64,
   tickFormat,
   tickValues,
