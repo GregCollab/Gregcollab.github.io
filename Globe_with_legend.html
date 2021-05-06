@@ -5,20 +5,21 @@
     <script src="https://d3js.org/d3-selection.v2.min.js"></script>
     <script src="https://d3js.org/d3-drag.v2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.2/d3.min.js"></script>
-    <script src="https://d3js.org/queue.v1.min.js"></script>
+    <script src="http://d3js.org/queue.v1.min.js"></script>
     <script src="https://d3js.org/d3-color.v2.min.js"></script>
     <script src="https://d3js.org/d3-interpolate.v2.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v2.min.js"></script>
-
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
         body {
           font-family: "Helvetica Neue", Helvetica, sans-serif;
           font-size: 14px;
           color: #333;
-          width:1200px;
-          height:1000px;
+          width:100vw;
+          height:100vh;
           margin: auto;
+          display: block;
         }
         
 
@@ -28,51 +29,62 @@
 
         }
         .info {
-            height : 50px;
+            height : 5vh;
             font-size: 25px;
             text-align: center;
         }
 
     
-        .Slider {
-            text-align: "center";
-            position:relative;
-            left:25%;
-
+        #Container_slider {
+                      margin-left: 25vh;
+                      margin-right:25vh;
         }
         #SliderHere {
-            width:59%
+            width:50vh;
+            margin-left:50vh
+            
         }
         #Container_jaartal {
             text-align:"center";
-            position:relative;
+            margin-left: 50vw;
+            margin-right:50vw;
             left:50%;
             font-size:25px;
         }
         #timelapse {
-            position:relative;
-            left:47%
+          margin-left:94vh
+
         }
-
-
+        
+      #legend{
+        left:100px
+      }
+      #t {
+        margin-left: 10vh;
+        margin-right: 10vh;
+        width: 100vw;
+        height:75vh
+      }
+      #Legend {
+        margin-left:10vw
+      }
         
         </style>
 </head>
 
 <body>
 
-    <div id="Globe" width="1200px" align="center">
+    <div id="Globe" align="center">
       
-        <svg width="1250px" height="1000px" id = "t">
+        <svg id = "t">
           <g class="map"></g>
         </svg>
 
       </div>
         <div class="info"  >       Hover over a country</div>
       </div>
-      
+              <svg id="Legend"></svg> 
       <div id="Container_slider" class = "Slider"> 
-        <svg id="Legend" width = "850px" height = "50"></svg> 
                   <input  type="range" min="1970" max="2019" value="2000" id="SliderHere"></input></div>
       <div id="Container_jaartal" ></div>
       <div id="timelapse"> <input type="button" value="Click here for timelapse" onclick=TikTok()></input> </div>
@@ -90,7 +102,7 @@
         //     .attr("stroke","black");
 
         var projection = d3.geoOrthographic()
-            .scale(355)
+            .scale(height/2-50)
             .precision(0.5)
             .translate(centerorb)
         console.log(d3.geoOrthographic().invert(projection.center()))
@@ -142,10 +154,10 @@
             }))
 
         var zoom = d3.zoom()
-            .scaleExtent([2,50])
+            .scaleExtent([1,50])
             .on("zoom",zoomed);
         svg.call(zoom)
-        var scl =500/2.5;
+        var scl =height/2.5;
         path = d3.geoPath().projection(projection)
         
 
@@ -240,7 +252,7 @@
 
         color: d3.scaleSequential([0, 5], d3.interpolateRdYlGn0),
         title: "Relative amount of attacks ",
-        x_vals : ["0",Ymax]})
+        x_vals : ["0",Math.ceil(Ymax/4),Math.ceil(Ymax/2),Math.ceil(3*Ymax/4,Ymax)]})
             };
         path = d3.geoPath().projection(projection)
         svg.selectAll("path").attr("d",path);
@@ -280,17 +292,17 @@
     
 
 
-    
+      var width_everything = document.getElementById("Globe").clientWidth
         function legend({
             color,
   title,
   tickSize = 6,
-  width = 750,
+  width = 0.75*width_everything,
   height = 50 + tickSize,
   marginTop = 18,
-  marginRight = 50,
+  marginRight = width_everything*0.125,
   marginBottom = 16 + tickSize,
-  marginLeft = 0,
+  marginLeft = width_everything*0.125,
   ticks = width / 64,
   tickFormat,
   tickValues,
