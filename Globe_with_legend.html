@@ -60,10 +60,10 @@
         left:100px
       }
       #t {
-        margin-left: 10vh;
         margin-right: 10vh;
         width: 100vw;
-        height:75vh
+        height:75vh;
+
       }
       #Legend {
         margin-left:10vw
@@ -74,8 +74,7 @@
 
 <body>
 
-    <div id="Globe" align="center">
-      
+    <div id="Globe">
         <svg id = "t">
           <g class="map"></g>
         </svg>
@@ -251,7 +250,7 @@
                     legend({
 
         color: d3.scaleSequential([0, 5], d3.interpolateRdYlGn0),
-        title: "Relative amount of attacks ",
+        title: "Amount of attacks ",
         x_vals : ["0",Math.ceil(Ymax/4),Math.ceil(Ymax/2),Math.ceil(3*Ymax/4,Ymax)]})
             };
         path = d3.geoPath().projection(projection)
