@@ -75,15 +75,16 @@
         <svg id="Legend" width = "850px" height = "50"></svg> 
                   <input  type="range" min="2020" max="2100" value="2021" id="SliderHere"></input></div>
       <div id="Container_jaartal" ></div>
-      <div id="timelapse"> <input type="button" value="Click here for timelapse" onclick=TikTok()></input> </div>
-          <div id="pathway"> <label for="Pathway">Choose a Pathway:</label>
-
+                <div id="pathway"> <label for="Pathway">Choose a Pathway:</label>
 <select name="Pathway" id="Pathway">
   <option value="26">RCP26</option>
   <option value="45">RCP45</option>
   <option value="60">RCP60</option>
   <option value="85">RCP85</option>
 </select></div>
+      <div id="timelapse"> <input type="button" value="Click here for timelapse" onclick=TikTok()></input> </div>
+
+
     <script>
         //Loading the orb
         var {width, height} = d3.select("#Globe svg").node().getBoundingClientRect();
