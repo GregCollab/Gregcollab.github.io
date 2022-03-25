@@ -1905,7 +1905,7 @@
         },
         {
             "type": "Feature",
-            "id": "BLZ",
+            "id": "GTM",
             "properties": {
                 "name": "Belize"
             },
@@ -5611,7 +5611,7 @@
         },
         {
             "type": "Feature",
-            "id": "GNB",
+            "id": "SEN",
             "properties": {
                 "name": "Guinea Bissau"
             },
@@ -5934,7 +5934,7 @@
         },
         {
             "type": "Feature",
-            "id": "GUF",
+            "id": "GUY",
             "properties": {
                 "name": "French Guiana"
             },
@@ -7471,7 +7471,7 @@
         },
         {
             "type": "Feature",
-            "id": "CS-KM",
+            "id": "ALB",
             "properties": {
                 "name": "Kosovo"
             },
@@ -7799,7 +7799,7 @@
         },
         {
             "type": "Feature",
-            "id": "LUX",
+            "id": "BEL",
             "properties": {
                 "name": "Luxembourg"
             },
@@ -10952,7 +10952,7 @@
         },
         {
             "type": "Feature",
-            "id": "RWA",
+            "id": "COG",
             "properties": {
                 "name": "Rwanda"
             },
@@ -11444,7 +11444,7 @@
         },
         {
             "type": "Feature",
-            "id": "SLV",
+            "id": "GTM",
             "properties": {
                 "name": "El Salvador"
             },
@@ -11845,7 +11845,7 @@
         },
         {
             "type": "Feature",
-            "id": "SWZ",
+            "id": "ZAF",
             "properties": {
                 "name": "Swaziland"
             },
