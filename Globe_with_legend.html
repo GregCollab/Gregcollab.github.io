@@ -5,21 +5,20 @@
     <script src="https://d3js.org/d3-selection.v2.min.js"></script>
     <script src="https://d3js.org/d3-drag.v2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.2/d3.min.js"></script>
-    <script src="https://d3js.org/queue.v1.min.js"></script>
+    <script src="http://d3js.org/queue.v1.min.js"></script>
     <script src="https://d3js.org/d3-color.v2.min.js"></script>
     <script src="https://d3js.org/d3-interpolate.v2.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v2.min.js"></script>
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 
     <style>
         body {
           font-family: "Helvetica Neue", Helvetica, sans-serif;
           font-size: 14px;
           color: #333;
-          width:100vw;
-          height:100vh;
+          width:1200px;
+          height:1000px;
           margin: auto;
-          display: block;
         }
         
 
@@ -29,65 +28,62 @@
 
         }
         .info {
-            height : 5vh;
+            height : 50px;
             font-size: 25px;
             text-align: center;
         }
 
     
-        #Container_slider {
-                      margin-left: 25vh;
-                      margin-right:25vh;
+        .Slider {
+            text-align: "center";
+            position:relative;
+            left:25%;
+
         }
         #SliderHere {
-            width:50vh;
-            margin-left:50vh
-            
+            width:59%
         }
         #Container_jaartal {
-            align-content:"center";
-            width:100vw;
-            position: relative;
-            text-align:center;
+            text-align:"center";
+            position:relative;
+            left:50%;
             font-size:25px;
         }
         #timelapse {
-          position: relative;
-          text-align: center;
+            position:relative;
+            left:47%
         }
-        
-      #legend{
 
-      }
-      #t {
-        margin-right: 10vh;
-        width: 100vw;
-        height:75vh;
 
-      }
-      #Legend {
-        margin-left: 25vw;
-        
-      }
         
         </style>
 </head>
 
 <body>
 
-    <div id="Globe">
-        <svg id = "t">
+    <div id="Globe" width="1200px" align="center">
+      
+        <svg width="1250px" height="1000px" id = "t">
           <g class="map"></g>
         </svg>
 
       </div>
         <div class="info"  >       Hover over a country</div>
       </div>
-         <div>    <svg id="Legend"></svg> </div> 
+      
       <div id="Container_slider" class = "Slider"> 
-                  <input  type="range" min="1970" max="2019" value="2000" id="SliderHere"></input> </div>
+        <svg id="Legend" width = "850px" height = "50"></svg> 
+                  <input  type="range" min="2020" max="2100" value="2021" id="SliderHere"></input></div>
       <div id="Container_jaartal" ></div>
-      <div id="timelapse"> <input id = "thebutton" type="button" value="Click here for timelapse" onclick=TikTok()></input> </div>
+      <div id="timelapse"> <input type="button" value="Click here for timelapse" onclick=TikTok()></input> </div>
+          <div id="pathway"> <label for="Pathway">Choose a Pathway:</label>
+
+<select name="Pathway" id="Pathway">
+  <option value="26">RCP26</option>
+  <option value="45">RCP45</option>
+  <option value="60">RCP60</option>
+  <option value="85">RCP85</option>
+</select></div>
     <script>
         //Loading the orb
         var {width, height} = d3.select("#Globe svg").node().getBoundingClientRect();
@@ -102,7 +98,7 @@
         //     .attr("stroke","black");
 
         var projection = d3.geoOrthographic()
-            .scale(height/2-50)
+            .scale(355)
             .precision(0.5)
             .translate(centerorb)
         console.log(d3.geoOrthographic().invert(projection.center()))
@@ -154,10 +150,10 @@
             }))
 
         var zoom = d3.zoom()
-            .scaleExtent([1,50])
+            .scaleExtent([2,50])
             .on("zoom",zoomed);
         svg.call(zoom)
-        var scl =height/2.5;
+        var scl =500/2.5;
         path = d3.geoPath().projection(projection)
         
 
@@ -169,7 +165,9 @@
             svg.selectAll("path").attr("d",path)
             svg.selectAll("circle").attr("r",projection.scale())
         }
-        
+        var Pathway = document.getElementById("Pathway");
+        var ChosenPathway = Pathway.value;
+        console.log(ChosenPathway)
         var slider = document.getElementById("SliderHere");
         if (slider.value != 1993){
             var Chosenyear = slider.value
@@ -178,26 +176,32 @@
         container.innerHTML = slider.value;
         function LoadData() {
         queue()
-            .defer(d3.csv,"/GlobeData.csv")
+            .defer(d3.csv,"/Actual_data.csv")
             .defer(d3.json,"/world.json")
             .await(builder);
             
-        function builder(err,GlobeData,world){
+        function builder(err,Actual_data,world){
             svg.selectAll("path").remove();
             const svg2 = d3.select("#Legend")
             svg2.selectAll("g").remove();
 
             path = d3.geoPath().projection(projection)
-            console.log(GlobeData[1000])
+            console.log(Actual_data[1000])
             var DataSetYear = d3.nest()
                 .key(function(d) {
-                    return d.iyear
+                    return d.Year
                 })
-                .entries(GlobeData);
+                .entries(Actual_data);
             var DataSetRelevant = DataSetYear.filter(function (d) {return d.key=== Chosenyear})[0].values
+            var DataSetPathway = d3.nest()
+                .key(function(d) {
+                  return d.Pathway
+                })
+                .entries(DataSetRelevant);
+            var DataSetRelevant = DataSetPathway.filter(function (d) {return d.key=== ChosenPathway})[0].values
             console.log(DataSetRelevant[1])
             var test = 0;
-            var Ymax = d3.max(DataSetRelevant,d => parseInt(d.nattacks));
+            var Ymax = d3.max(DataSetRelevant,d => parseInt(d.Temperature));
             console.log(Ymax)
             var DataSetOrdered = d3.nest()
                 .key(function(d) {
@@ -211,26 +215,21 @@
                 .append('path')
                 .attr("fill","green")
                 .attr("stroke","black")
-                .attr("tag", function(p) {p.id})
-                .attr("nkill",function(p){
+                .attr("tag",function(p) {p.id})
+                .attr("Temperature",function(p){
                     if (DataSetOrdered.hasOwnProperty(p.id)) {
-                        return DataSetOrdered[p.id][0].nkill
-                    }
-                    else {return 0}})
-                .attr("nattack",function(p){
-                    if (DataSetOrdered.hasOwnProperty(p.id)) {
-                        return DataSetOrdered[p.id][0].nattacks
+                        return DataSetOrdered[p.id][0].Temperature
                     }
                     else {return 0}})
                     .attr("d",path)
-                .attr("fill",function() {var xyz = this.getAttribute("nattack");
-                return d3.interpolateRdYlGn(1-xyz/Ymax)})
+                .attr("fill",function() {var xyz = this.getAttribute("Temperature");
+                return d3.interpolateRdYlGn(1-xyz/8)})
                 .on("mouseover",function(p) {
                     if(!mouseDown){
                         d3.select(this).attr("opacity","0.85")
                         d3.select(this).attr("translate(500,500)")
                         d3.select(".info")
-                            .text("In " + p.properties.name+ ", there were "+ parseInt(this.getAttribute("nattack")) + " attacks in " + Chosenyear + " with a total of " + parseInt(this.getAttribute("nkill")) + " fatal casualties." )
+                            .text("In " + p.properties.name+ " for pathway "+ ChosenPathway + " the total relative increase in temperature in  " + Chosenyear + " is " + this.getAttribute("Temperature").substring(0,5) )
                             
                     }
                 }) 
@@ -250,9 +249,9 @@
              .attr("stroke","black")
                     legend({
 
-        color: d3.scaleSequential([0, 5], d3.interpolateRdYlGn0),
-        title: "Amount of attacks ",
-        x_vals : ["0",Math.ceil(Ymax/4),Math.ceil(Ymax/2),Math.ceil(3*Ymax/4,Ymax)]})
+        color: d3.scaleSequential([0, 8], d3.interpolateRdYlGn0),
+        title: "Relative temperature increase ",
+        x_vals : ["0","8"]}) 
             };
         path = d3.geoPath().projection(projection)
         svg.selectAll("path").attr("d",path);
@@ -267,6 +266,13 @@
             path = d3.geoPath().projection(projection)
             svg.selectAll("path").attr("d",path);
             container.innerHTML=slider.value;
+        };
+        Pathway.oninput = function() {
+            ChosenPathway = Pathway.value;
+            LoadData(); 
+            console.log(ChosenPathway);
+            path = d3.geoPath().projection(projection)
+            svg.selectAll("path").attr("d",path);
         };
     
         function TikTok(){
@@ -292,15 +298,15 @@
     
 
 
-      const width_everything = document.getElementById("Globe").clientWidth
+    
         function legend({
             color,
   title,
   tickSize = 6,
-  width = 0.5*width_everything,
+  width = 750,
   height = 50 + tickSize,
   marginTop = 18,
-  marginRight = 0,
+  marginRight = 50,
   marginBottom = 16 + tickSize,
   marginLeft = 0,
   ticks = width / 64,
