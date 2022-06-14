@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<head>
+    <title>Vakantie Scriptje</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+
+    <style>
+        body {
+            
+          font-family: "Helvetica Neue", Helvetica, sans-serif;
+          font-size: 20px;
+          color: #333;
+   
+        }
+        div {
+    display: inline-block;
+    font-size:30px
+        }
+
+    span {
+        width:100%
+    }
+    div label {
+    display: block;
+}
+
+        
+        </style>
+</head>
+
+<body>
+    <span></span>
+    <div id='AvHo'> 
+    <div>
+    <label>Beschikbare Uren</label>
+    <input id="avh" style='font-size:20pt', type="number" />
+</div> </div>
+<div> <h4> u</h4></div>
+<div>
+    <label>Beschikbare minuten</label>
+    <input id="avm" type="number" style='font-size:20pt' />
+</div>
+<div> <h4> m</h4></div>
+<div id="wd"> <label> Werkdag</label> <input id='werkdag', style='font-size:20pt', type = 'time', value="07:36"> 
+</div>
+</span>
+<div id="Button" style='width:100%'> <input type="button"style='font-size:20pt' value="Convert!" onclick=Calculate()></input> </div>
+<div id="OutputBox"> 
+    <p1 id="OutputBox"> Wachten op input... </p1>
+</div>
+<div id="OutputBox2", style='width:100%'> 
+    <p1 id="OutputBox2"> </p1>
+</div>
+    <script>
+        function Calculate(){
+        var Uur = document.getElementById('avh').value
+        var Minuten = document.getElementById('avm').value
+        var WerkDag = document.getElementById('werkdag')
+        var Container = document.getElementById('OutputBox')
+        var hourswd = WerkDag.value.substring(0,2)
+        var minuteswd = WerkDag.value.substring(3,5)
+        var inMinutes = parseInt(hourswd)*60+parseInt(minuteswd)
+        var inMinutesa = parseInt(Uur)*60 + parseInt(Minuten)
+        var DaysTotal = parseInt(inMinutesa/inMinutes)
+        var HoursTotal = parseInt((inMinutesa-DaysTotal*inMinutes)/60)
+        var MinutesTotal = inMinutesa-DaysTotal*inMinutes -parseInt((inMinutesa-DaysTotal*inMinutes)/60)*60
+        if (DaysTotal == 1){
+            Container.innerHTML = 'Je hebt in totaal ' + String(DaysTotal) + ' dag, ' + String(HoursTotal) + ' uur en ' + String(MinutesTotal)+ ' minuten verlofdagen over.'
+        }
+        else{
+            Container.innerHTML = 'Je hebt in totaal ' + String(DaysTotal) + ' dagen, ' + String(HoursTotal) + ' uur en ' + String(MinutesTotal)+ ' minuten verlof over.' 
+        }
+        RemainderDays(HoursTotal, MinutesTotal)
+    }
+    function RemainderDays(HoursTotal, MinutesTotal){
+        var WerkDag = document.getElementById('werkdag')
+        var hourswd = WerkDag.value.substring(0,2)
+        var minuteswd = WerkDag.value.substring(3,5)
+        var Container2 = document.getElementById('OutputBox2')
+        var inMinutes = parseInt(hourswd)*60+parseInt(minuteswd)
+        var Remainder = inMinutes - HoursTotal*60 - MinutesTotal
+        Container2.innerHTML = 'Je mist nog ' + String(parseInt(Remainder/60)) + ' uur en ' + String( parseInt(Remainder)-parseInt(Remainder/60)*60 ) +' minuten voor een extra dag.'
+
+    }
+
+    </script>
+
+
+</body>
