@@ -11,10 +11,7 @@
     font-weight: 100;
     color: white;
     background: radial-gradient(#104F55,#1f1013);
-    -webkit-overflow-Y: hidden;
-    -moz-overflow-Y: hidden;
-    -o-overflow-Y: hidden;
-    overflow-y: hidden;
+
     -webkit-animation: fadeIn 1 1s ease-out;
     -moz-animation: fadeIn 1 1s ease-out;
     -o-animation: fadeIn 1 1s ease-out;
@@ -349,6 +346,7 @@
   text-align: center;
 }
 
+
 #footer{
   font-family: 'Roboto', sans-serif;
   font-size: 1.2em;
@@ -371,7 +369,7 @@
 #D { 
     padding-top:0.05vh ;
 }
-#top {padding-top:10vh}
+#top {padding-top:5vh}
 #Bounder {border: 1px solid white;}
 .box {
 	
@@ -383,6 +381,9 @@
     color:white;
 
     }
+.box:focus::placeholder {
+color:transparent 
+}
     div label {
     display: block;
 }
