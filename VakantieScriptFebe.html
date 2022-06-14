@@ -360,7 +360,7 @@
 
 
         div {
-    padding-top:5vh;
+    padding-top:2vh;
     font-size:30px;
     margin: auto;
     width: 60vw;
@@ -369,7 +369,7 @@
 #D { 
     padding-top:0.05vh ;
 }
-#top {padding-top:5vh}
+#top {padding-top:2vh}
 #Bounder {border: 1px solid white;}
 .box {
 	
@@ -381,6 +381,63 @@
     color:white;
 
     }
+
+.center {
+  height: 8vh;
+  width:15vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.wave {
+  width: 15vw;
+  height: 8vh;
+  background: linear-gradient(45deg, #104F55, #fff);
+  animation: wave 2s linear infinite;
+
+}
+.wave:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.wave:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.wave:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.wave:nth-child(5) {
+  animation-delay: 0.4s;
+}
+.wave:nth-child(6) {
+  animation-delay: 0.5s;
+}
+.wave:nth-child(7) {
+  animation-delay: 0.6s;
+}
+.wave:nth-child(8) {
+  animation-delay: 0.7s;
+}
+.wave:nth-child(9) {
+  animation-delay: 0.8s;
+}
+.wave:nth-child(10) {
+  animation-delay: 0.9s;
+}
+
+@keyframes wave {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+
 .box:focus::placeholder {
 color:transparent 
 }
@@ -414,8 +471,20 @@ color:transparent
     <p1 id="OutputBox"> Wachten op input... </p1>
 </div>
 <div id="OutputBox2", style='width:100%'> 
-    <p1 id="OutputBox2"> </p1>
+    <p1 id="OutputBox2">   <div class="center">
+  <div class="wave"></div>
+  <div class="wave"></div>
+  <div class="wave"></div>
+  <div class="wave"></div>
+  <div class="wave"></div>
+  <div class="wave"></div>
+  <div class="wave"></div>
+  <div class="wave"></div>
+  <div class="wave"></div>
+  <div class="wave"></div>
+</div></p1>
 </div>
+<div class="clock-loader"></div>
 </div>
   <div class='light x1'></div>
   <div class='light x2'></div>
@@ -426,6 +495,7 @@ color:transparent
   <div class='light x7'></div>
   <div class='light x8'></div>
   <div class='light x9'></div>
+
     <script>
         function Calculate(){
         var Uur = document.getElementById('avh').value
