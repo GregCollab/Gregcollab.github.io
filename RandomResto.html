@@ -95,7 +95,7 @@
 			<p>Let this random Leuven restaurant generator choose!</p>
 			<hr>
 			<div id="restaurant">
-				<input type="button" onclick="RandomRestaurant()" id="generateButton" value="Generate">
+				<input type="button" onclick="fetchRestaurants()" id="generateButton" value="Generate">
 				<div class="output-box" id="Restaurant3">Click the button to generate a restaurant</div>
 			</div>
       
@@ -103,17 +103,33 @@
 	</main>
 </body>
 <script>
-  const Restaurants = ["Wok A Way","t' Katastroofke","Yamy Food","Quick Asia","Subway","Taverne Fonske","Q's French Tacos Leuven","Pizza Canti","Potala Momo","Coco Bango","Mosaic","Poule & Poulette","Casper","New York Pizza","Frituur De Ring","Buena Onda","Lucy Chang","Stuffed","O'Pasta","Royal Lebanon","Casa Mia","Lavinia","Pizza Talia's Concept","Wolfgang","Tabi Loo","Thai Time","Panevita","Fitchen","Pokerrito","Burger King","Yum Yum Sushi Leuven","Jagat's Place","Le Mustache","Pizza American","You Sushi","Asian Bowl","Carpe Diem","Chick-Away","PanachÃ©","Fritboutique","Nobu Sushi","Pizza Posto","McDonald's","Le Graal","Piccolo","De Klimop","Into Drink","FoodBar","Grand CafÃ© Industrie","Asian Express","Broodjeszaak Kadeeke","Thai House","Wok & Momo House","Maza House","La Filosofia","D'entreprise","La Piazzetta","Bar Nine","De Pasvite","Frituur Movie bij Patrick","Coffee & Bagel","Frituur Den Dreef","De Smullende Heks","Mangetout","Lust Daily Delicious","Broodjeszaak De Roos","Hawaiian Poke Bowl","T'More Enjoy","Ruba Healthy & Fresh Food","Falafel Top","Grill Leuven","Aelia Pizza Capitolina","Pronto","Fatayer","Loco Pizza 2","De Friettoerist","Damasco","Yavuz","Huis der Burgers","Tasty Food Vesalius","De 3 Wijzen","Pizzeria Dilan","Giraffe","Boccone","Taste of Asia","Chick 'n Dip","Indian Spice Hut","Capital 88","Loco Pizza","Belchicken Leuven","Bocata","De Nijl 1","Indian Royal Food","Frituur Belgium","Frituur Giraffe","Kintsugi Sushi Bar & Grill","Amici Miei","O'Tacos","Deli Sushi","Greenway","Wabi Sabi","Frituur Boem Patat","Pasta Ruffo","Rotis","Bia Mara","Ah Quy","Burger Folie","Caliburr - Californian Burritos","De Kruimel","Life Bar","Pizza Sole Mio","Everest Quick Food","Kebap Company","Otomat","Los Flamencos Tapas Bar","Pizza Ti Amo","De Appel","Domino's Pizza","Kingslize Pizza","Past-A-Porter","Kalypta Tapas Bar","Etna Trattoria","Portogalo","Palmyra","Dal Pesce Innamorato","My Thai","Friterie Pepe's Taste","Taj Mahal","Sewar Snack-Resto","Sticky Fingers BBQ","Annapurna","Le Pain Quotidien","De Werf","Croque 'n Roll","'t Fritwinkeltje","Bavet","Loempialand","Sharks & Sticks","Hungry Eye","Frituur Station","Babo's Burger","Timory","Ali Baba","Krua Thai","Pizzeria Saray","La Lumaca","Indian Spice Hut","Cheekofte & Wraps","Kiku Sushi","Yum Yum Sushi","Wurst","Osteria Michele","Indian Flavour","Basic Italian","Wok Asia","Restaurant t' Dagelijks Broodje","Namaste Tandoori","Istanbul","Balls & Glory","Sushi Mama","Pizza Hut Delivery","Sushi Leuven","Saki Sushi","Ellis","Chinese Muur","Pizzeria Morenas","El Sombrero","Buddha House","Sikinoya","Het Hoekske","Samourai","New Holycow","Tian Tan","Domino's Pizza","Quo Vadis","Merdin 1"]
-function RandomRestaurant() {
-    i = Math.floor(Math.random()*(Restaurants.length + 1))
-    Result = Restaurants[i]
-    Parent = document.getElementById("Restaurant3")
-    Parent.innerHTML = Result
-    console.log(Result)
+let Restaurants;
+
+function fetchRestaurants() {
+  fetch('Restolist.txt')
+    .then(response => response.text())
+    .then(text => {
+	const texto = text.slice(1,-1)
+	var Restaurants = texto.split(',')
+	const restaurants = Restaurants /* If you are reading this, this code is not optimal.*/
+    RandomRestaurant(Restaurants); /* Fetch restaurant should only be called once, and then RandomRestaurant should be called */
+    }); /* I am, however, not experienced in JavaScript ! If you have a working fix, let me know :-)*/
 }
+
+function RandomRestaurant(Restaurants) {
+  const i = Math.floor(Math.random() * Restaurants.length);
+  const result = Restaurants[i];
+  const parent = document.getElementById("Restaurant3");
+  parent.innerHTML = result.slice(2,-1);
+  console.log(result);
+}
+
 function InitValue() {
-    Parent = document.getElementById("Restaurant3")
-    Parent.innerHTML = "Not yet clicked!"
+  const parent = document.getElementById("Restaurant3");
+  parent.innerHTML = "Not yet clicked!";
 }
+
+// Call the fetchRestaurants function to fetch the list of restaurants
+fetchRestaurants();
 
 </script>
