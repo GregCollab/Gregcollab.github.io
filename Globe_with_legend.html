@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
     <title>Globe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://d3js.org/d3-dispatch.v2.min.js"></script>
     <script src="https://d3js.org/d3-selection.v2.min.js"></script>
     <script src="https://d3js.org/d3-drag.v2.min.js"></script>
@@ -12,46 +13,70 @@
 
 
     <style>
-        body {
-          font-family: "Helvetica Neue", Helvetica, sans-serif;
-          font-size: 14px;
-          color: #333;
-          width:1200px;
-          height:1000px;
-          margin: auto;
-        }
-        
+   body {
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 14px;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  height: 100vh;
+}
+    #window{
+      width:100vw;
+      height:100vh;
+      display: block;
+    }
+    #Globe {
+
+      display: block;
+    }
 
         .graticule {
+            
             fill:none;
             stroke:black;
+            position:absolute; 
+            display: block;
 
         }
         .info {
-            height : 50px;
+            
             font-size: 25px;
+            display:block;
             text-align: center;
+            position:relative; 
+            display: block;
         }
 
     
         .Slider {
-            text-align: "center";
-            position:relative;
-            left:25%;
+          display:block;
+          display: block;
+          text-align: center;
+            
 
         }
         #SliderHere {
-            width:59%
+          display: block;
+          text-align:center;
+          margin: auto;
+          width:50%
         }
         #Container_jaartal {
-            text-align:"center";
-            position:relative;
-            left:50%;
+          display:block;
+          
+            text-align:center;
             font-size:25px;
         }
         #timelapse {
-            position:relative;
-            left:47%
+          text-align: center;
+          display:block;
+            
+        }
+        #pw {
+          text-align: center;
+          display:block;
         }
 
 
@@ -60,31 +85,31 @@
 </head>
 
 <body>
-
-    <div id="Globe" width="1200px" align="center">
+<div id=window>
+  
+    <div id="Globe" align="center">
+        <svg width="100%" height="60vh" id = "t">
+          <g height = '60vh'class="map"></g>
+        </svg></div>
+    <div id="pw">
+    <div class="info"  >       Hover over a country</div>
+    <div id="pathway" text-align="center" margin="auto"> <label for="Pathway">Choose a Pathway:</label>
+    <select name="Pathway" id="Pathway">
+    <option value="26">RCP26</option>
+    <option value="45">RCP45</option>
+    <option value="60">RCP60</option>
+    <option value="85">RCP85</option>
+    </select>
+    </div>
+    </div>
       
-        <svg width="1250px" height="1000px" id = "t">
-          <g class="map"></g>
-        </svg>
-<div id="pathway"> <label for="Pathway">Choose a Pathway:</label>
-<select name="Pathway" id="Pathway">
-  <option value="26">RCP26</option>
-  <option value="45">RCP45</option>
-  <option value="60">RCP60</option>
-  <option value="85">RCP85</option>
-</select></div>
-      </div>
-        <div class="info"  >       Hover over a country</div>
-      </div>
-      
-      <div id="Container_slider" class = "Slider"> 
-        <svg id="Legend" width = "850px" height = "50"></svg> 
-                  <input  type="range" min="2020" max="2100" value="2021" id="SliderHere"></input></div>
+        
+    
+        <svg id="Legend" ></svg> 
+                  <input  type="range" min="2020" max="2100" value="2021" id="SliderHere"></input>
       <div id="Container_jaartal" ></div>
-                
       <div id="timelapse"> <input type="button" value="Click here for timelapse" onclick=TikTok()></input> </div>
-
-
+    </div>
     <script>
         //Loading the orb
         var {width, height} = d3.select("#Globe svg").node().getBoundingClientRect();
@@ -99,7 +124,7 @@
         //     .attr("stroke","black");
 
         var projection = d3.geoOrthographic()
-            .scale(355)
+            .scale(height/2)
             .precision(0.5)
             .translate(centerorb)
         console.log(d3.geoOrthographic().invert(projection.center()))
@@ -151,15 +176,11 @@
             }))
 
         var zoom = d3.zoom()
-            .scaleExtent([2,50])
+            .scaleExtent([height/2,height])
             .on("zoom",zoomed);
         svg.call(zoom)
-        var scl =500/2.5;
+        var scl =2.5/2.5;
         path = d3.geoPath().projection(projection)
-        
-
-        
-            
 
         function zoomed(){
             projection.scale(d3.event.transform.translate(projection).k *scl)
@@ -297,22 +318,23 @@
 
         }
     
+        console.log(window.innerHeight)
 
-
-    
+        
         function legend({
             color,
   title,
-  tickSize = 6,
-  width = 750,
-  height = 50 + tickSize,
-  marginTop = 18,
-  marginRight = 50,
-  marginBottom = 16 + tickSize,
-  marginLeft = 0,
+  tickSize = window.innerHeight,
+  width = window.innerWidth/2,
+  height = window.innerHeight/8,
+  marginTop = 0.05*window.innerHeight,
+  marginRight =  0,
+  marginBottom = window.innerHeight*0.05,
+  marginLeft =   0,
   ticks = width / 64,
   tickFormat,
   tickValues,
+  
   x_vals
 } = {}) {
   const svg = d3.select("#Legend")
@@ -320,17 +342,16 @@
     .attr("height", height)
     .attr("viewBox", [0, 0, width, height])
     .style("overflow", "visible")
-    .style("display", "block");
+    .style('display', 'block')
+    .style('margin','auto')
+
 
   let tickAdjust = g => g.selectAll(".tick line").attr("y1", marginTop + marginBottom - height);
   let x;
-
   // Continuous
   if (color.interpolate) {
     const n = Math.min(color.domain().length, color.range().length);
-
     x = color.copy().rangeRound(d3.quantize(d3.interpolate(marginLeft, width - marginRight), n));
-
     svg.append("image")
       .attr("x", marginLeft)
       .attr("y", marginTop)
